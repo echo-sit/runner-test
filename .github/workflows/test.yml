@@ -3,7 +3,8 @@ name: Self-hosted Runner Test
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   test:
@@ -23,9 +24,8 @@ jobs:
 
       - name: Test network connectivity to GitHub
         run: |
-          curl -sSf --max-time 10 https://github.com > /dev/null && echo "✅ GitHub reachable" || echo "❌ GitHub unreachable"
+          curl -sSf --max-time 10 https://github.com > /dev/null && echo "GitHub reachable" || echo "GitHub unreachable"
 
       - name: Test Docker availability
         run: |
-          docker version --format "Docker: {{.Server.Version}}"
-          docker ps --format "Running containers: {{.Names}}" | head -5
+          docker version --format "Docker {{.Server.Version}}"
